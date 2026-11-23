@@ -886,3 +886,116 @@ section {
         grid-template-columns: 1fr;
     }
 }
+/* زرار القائمة مخفي على الكمبيوتر */
+#siteHeader .burger {
+    display: none;
+}
+
+/* الموبايل والتابلت */
+@media (max-width: 900px) {
+    #siteHeader {
+        position: relative;
+        z-index: 1000;
+    }
+
+    #siteHeader .header-inner {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        direction: rtl;
+    }
+
+    /* إخفاء زر الاتصال الكبير لتوفير مساحة */
+    #siteHeader .header-cta {
+        display: none;
+    }
+
+    #siteHeader .burger {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        flex-shrink: 0;
+
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    #siteHeader .burger span {
+        display: block;
+        width: 23px;
+        height: 2px;
+        margin: 0;
+
+        background: #ffad00;
+        border-radius: 2px;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    #siteHeader .burger:focus-visible {
+        outline: 2px solid #ffad00;
+        outline-offset: 4px;
+    }
+
+    /* القائمة قبل الفتح */
+    #siteHeader .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: 1001;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+
+        background: #101820;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0 0 14px 14px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        text-align: right;
+    }
+
+    /* القائمة بعد الفتح */
+    #siteHeader .main-nav.is-open {
+        display: flex;
+    }
+
+    #siteHeader .main-nav a {
+        display: block;
+        padding: 13px 16px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+    }
+
+    #siteHeader .main-nav a:hover,
+    #siteHeader .main-nav a:focus-visible {
+        background: rgba(255, 173, 0, 0.1);
+        color: #ffad00;
+    }
+
+    /* تحويل الشرطات إلى علامة إغلاق */
+    #siteHeader .burger[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    #siteHeader .burger[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #siteHeader .burger[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+}

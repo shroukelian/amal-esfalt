@@ -37,3 +37,57 @@ document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.c
 lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.classList.remove('active')});
 
 document.getElementById('year').textContent=new Date().getFullYear();
+
+
+
+(() => {
+    const header = document.getElementById("siteHeader");
+    const burger = document.getElementById("burger");
+    const mainNav = document.getElementById("mainNav");
+
+    if (!header || !burger || !mainNav) return;
+
+    function setMenu(open) {
+        mainNav.classList.toggle("is-open", open);
+        burger.setAttribute("aria-expanded", String(open));
+        burger.setAttribute(
+            "aria-label",
+            open ? "إغلاق القائمة" : "فتح القائمة"
+        );
+    }
+
+    burger.addEventListener("click", () => {
+        const isOpen = burger.getAttribute("aria-expanded") === "true";
+        setMenu(!isOpen);
+    });
+
+    // إغلاق القائمة بعد اختيار أحد الروابط
+    mainNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => setMenu(false));
+    });
+
+    // إغلاق القائمة عند الضغط خارج الهيدر
+    document.addEventListener("click", event => {
+        if (!header.contains(event.target)) {
+            setMenu(false);
+        }
+    });
+
+    // إغلاق القائمة بزر Escape
+    document.addEventListener("keydown", event => {
+        if (
+            event.key === "Escape" &&
+            burger.getAttribute("aria-expanded") === "true"
+        ) {
+            setMenu(false);
+            burger.focus();
+        }
+    });
+
+    // إعادة ضبط القائمة عند الانتقال لحجم الكمبيوتر
+    const mobileQuery = window.matchMedia("(max-width: 900px)");
+
+    mobileQuery.addEventListener("change", () => {
+        setMenu(false);
+    });
+})();
